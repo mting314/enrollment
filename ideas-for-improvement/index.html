@@ -1,0 +1,164 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    Ideas for Improvement
+  </title>
+
+  <meta name="description" content="An exploration into 20 years of enrollment data from the UCLA Registrar.">
+
+  <link href="https://fonts.googleapis.com/css?family=Overpass:400,400i,800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+    integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css"
+    href="https://d33wubrfki0l68.cloudfront.net/css/f913fa584d4ad0f21bec4c8ea1cd880ff89e0fe1/styles.css">
+
+  <link href="./assets/styles.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+  <style type="text/css">
+    /* Chart.js */
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: .99
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      animation: chartjs-render-animation 1ms
+    }
+
+    .chartjs-size-monitor,
+    .chartjs-size-monitor-expand,
+    .chartjs-size-monitor-shrink {
+      position: absolute;
+      direction: ltr;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+      z-index: -1
+    }
+
+    .chartjs-size-monitor-expand>div {
+      position: absolute;
+      width: 1000000px;
+      height: 1000000px;
+      left: 0;
+      top: 0
+    }
+
+    .chartjs-size-monitor-shrink>div {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      left: 0;
+      top: 0
+    }
+  </style>
+</head>
+
+<body>
+  <div class="p-6">
+    <header class="mb-6">
+      <h1 class="m-0">
+        Exploring UCLA Enrollment Data
+      </h1>
+    </header>
+    <main class="max-w-3xl my-auto mx-0 text-xl">
+      <article>
+        <h1>
+          Ideas for Improvement
+        </h1>
+        <p>Another one of those "vibes" at UCLA is that the university's undergraduate population is continuing to grow and grow and grow, so much so that it could start to significantly outpace the growth in administrative and academic ability to handle that number of students. Indeed, public data about UCLA's application numbers have been pointing to an overarching trend of <a href="https://www.apb.ucla.edu/campus-statistics/enrollment">almost constant growth over the past 20 years.</a></p>
+        <p>And it seems like that won't be stopping anytime soon; just this application cycle, the number of applications grew from <a href="https://newsroom.ucla.edu/releases/ucla-sees-surge-in-underrepresented-applicants">109k to 139k</a>.</p>
+        <p>And now with this data, we can start to analyze some more interesting trends regarding the effect of this growth. In particular, I'm curious if UCLA is able to hire enough grad students and other faculty to accomodate more sections of classes so as to not compromise the student-to-course ratio greatly. Anecdotally, lots of the math department professors for the undergrads are postdocs simply because UCLA is such a large math research institute, so the established tenured professors are busy doing research. As such, I've heard from many of these postdocs that there's somewhat of a "revolving door" where UCLA needs to constantly keep hiring new postdocs simply because their postdocs who start teaching as adjutant/assistant professors are so good at getting hired at other universities. I wondered if they were able to keep up with this, in light of the trends I've been mentioning.</p>
+        <figure>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div>
+          <canvas id="sections-and-enrollment-by-term" width="726" height="362" class="chartjs-render-monitor"
+            style="display: block; height: 181px; width: 363px;"></canvas>
+          <figcaption>Enrollment data obtained from UCLA <a
+              href="https://www.apb.ucla.edu/campus-statistics/enrollment">Office of Academic Planning and Budget</a>.
+          </figcaption>
+        </figure>
+        <p>One interesting point to note is that a similar problem seemed to arise in the early 2000s, where the student-to-course ratio actually exceeded 11. Digging into this, it seemed like for whatever reason, the yield rate was quite high in the early 2000s, and is only starting to increase again now, I'm guessing due to higher ratings nowadays, <a href="https://newsroom.ucla.edu/releases/ucla-no-1-us-public-university-us-news-world-report-2021">even over Berkeley</a> as so many UCLA students will let you know. </p>
+        <figure>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div>
+          <canvas id="yield-rate" width="726" height="362" class="chartjs-render-monitor"
+            style="display: block; height: 181px; width: 363px;"></canvas>
+          <figcaption>Admissions data obtained from UCLA <a
+              href="https://www.apb.ucla.edu/campus-statistics/admissions">Office of Academic Planning and Budget</a>.
+          </figcaption>
+        </figure>
+        <p>But in the previous graph, this growth in number of students does indeed seem to be outpacing the growth in number of sections offered, and the student-to-course ratio is growing pretty steadily. I suppose it remains to be seen if this is what UCLA is going for, or if UCLA will make significant enough policy changes to bring on more faculty to teach more sections.</p>
+        <h2 id="enforce-prime-time">Enforce Prime Time</h2>
+        <p>I mentioned in the <a href="./buildings/prime-time#/">Buildings section</a> the interesting policy about the so-called Prime Time, which in a nutshell is just the period from 9AM-3PM where apparently at most 60% of classes in a department are meant to be scheduled. However, we found that around 75% of classes are concentrated in Prime Time. In 2016, then-Executive Vice Chancellor and Provost Scott Waugh created a standing committee comprised of
+          students, faculty, and administrators to advise the university on how best to utilize classroom space. The
+          newly-formed Classroom Advisory Committee created <a
+            href="https://ucla.app.box.com/s/6kb0x2w476vg9eupb0r4cnul45w0zqw8">a report</a> in
+          just under a year with 31 recommendations that would better prepare UCLA for a more crowded future.
+          Recommendation 2e was to enforce the Prime Time restrictions of Policy 870, to "achieve a better temporal
+          distribution of classroom use".</p>
+        <p>Take, for example, Moore 100 – the largest general assignment classroom. In Winter 2020, while it held some
+          of UCLA's largest classes, it also went empty or underutilized a lot of the time – notably early in the
+          morning, in the evening, or Friday.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="moore-heatmap" width="726" height="362" class="chartjs-render-monitor"
+            style="display: block; height: 181px; width: 363px;"></canvas>
+        </p>
+      </article>
+    </main>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+    integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"
+    integrity="sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@0.1.3/dist/chartjs-chart-matrix.min.js"
+    integrity="sha256-w0NjVSRI+HwjqhuitUP0LW5ycKcCs7rMS6k8WHpdgmc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+
+
+  <script src="./assets/ideas-for-improvement.js">
+  </script>
+
+
+</body>
+
+</html>

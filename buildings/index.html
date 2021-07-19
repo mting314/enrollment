@@ -1,0 +1,239 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    Classroom Utilization |
+    Exploring Enrollment
+  </title>
+
+  <meta name="description" content="An exploration into 20 years of enrollment data from the UCLA Registrar.">
+
+  <link href="./assets/styles.css" rel="stylesheet">
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Overpass:400,400i,800&amp;display=swap" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://d33wubrfki0l68.cloudfront.net/css/f913fa584d4ad0f21bec4c8ea1cd880ff89e0fe1/styles.css">
+  <style type="text/css">
+    /* Chart.js */
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: .99
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      animation: chartjs-render-animation 1ms
+    }
+
+    .chartjs-size-monitor,
+    .chartjs-size-monitor-expand,
+    .chartjs-size-monitor-shrink {
+      position: absolute;
+      direction: ltr;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+      z-index: -1
+    }
+
+    .chartjs-size-monitor-expand>div {
+      position: absolute;
+      width: 1000000px;
+      height: 1000000px;
+      left: 0;
+      top: 0
+    }
+
+    .chartjs-size-monitor-shrink>div {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      left: 0;
+      top: 0
+    }
+  </style>
+</head>
+
+<body>
+  <div class="p-6">
+    <header class="mb-6">
+      <h1 class="m-0">
+        <a class="font-bold text-4xl header-link m-0" href="./">
+          Exploring UCLA Enrollment Data
+        </a>
+      </h1>
+    </header>
+    <main class="max-w-3xl my-auto mx-0 text-xl">
+      <article>
+        <h1>
+          Classroom Utilization
+        </h1>
+        <figure>
+          <div id="ucla-map" class="leaflet-container leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag"
+            tabindex="0" style="position: relative;">
+            <div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-214px, 0px, 0px);">
+              <div class="leaflet-pane leaflet-tile-pane">
+                <div class="leaflet-layer " style="z-index: 1; opacity: 1;">
+                  <div class="leaflet-tile-container leaflet-zoom-animated"
+                    style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation"
+                      src="./assets/6540.png"
+                      class="leaflet-tile leaflet-tile-loaded"
+                      style="width: 512px; height: 512px; transform: translate3d(207px, -352px, 0px); opacity: 1;"><img
+                      alt="" role="presentation" src="./assets/6541.png"
+                      class="leaflet-tile leaflet-tile-loaded"
+                      style="width: 512px; height: 512px; transform: translate3d(207px, 160px, 0px); opacity: 1;"><img
+                      alt="" role="presentation" src="./assets/6540(1).png"
+                      class="leaflet-tile leaflet-tile-loaded"
+                      style="width: 512px; height: 512px; transform: translate3d(-305px, -352px, 0px); opacity: 1;"><img
+                      alt="" role="presentation" src="./assets/6540(2).png"
+                      class="leaflet-tile leaflet-tile-loaded"
+                      style="width: 512px; height: 512px; transform: translate3d(719px, -352px, 0px); opacity: 1;"><img
+                      alt="" role="presentation" src="./assets/6541(1).png"
+                      class="leaflet-tile leaflet-tile-loaded"
+                      style="width: 512px; height: 512px; transform: translate3d(-305px, 160px, 0px); opacity: 1;"><img
+                      alt="" role="presentation" src="./assets/6541(2).png"
+                      class="leaflet-tile leaflet-tile-loaded"
+                      style="width: 512px; height: 512px; transform: translate3d(719px, 160px, 0px); opacity: 1;"></div>
+                </div>
+              </div>
+              <div class="leaflet-pane leaflet-shadow-pane"></div>
+              <div class="leaflet-pane leaflet-marker-pane"></div>
+              <div class="leaflet-pane leaflet-tooltip-pane"></div>
+              <div class="leaflet-pane leaflet-popup-pane"></div>
+              <div class="leaflet-proxy leaflet-zoom-animated"
+                style="transform: translate3d(1.43429e+06px, 3.34903e+06px, 0px) scale(16384);"></div>
+            </div>
+            <div class="leaflet-control-container">
+              <div class="leaflet-top leaflet-left">
+                <div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in"
+                    href="./buildings#" title="Zoom in"
+                    role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out leaflet-disabled"
+                    href="./buildings#" title="Zoom out"
+                    role="button" aria-label="Zoom out">−</a></div>
+              </div>
+              <div class="leaflet-top leaflet-right"></div>
+              <div class="leaflet-bottom leaflet-left"></div>
+              <div class="leaflet-bottom leaflet-right">
+                <div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com/"
+                    title="A JS library for interactive maps">Leaflet</a> | Map data © <a
+                    href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a
+                    href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a
+                    href="https://www.mapbox.com/">Mapbox</a></div>
+              </div>
+            </div>
+          </div>
+          <figcaption>UCLA has 596 classrooms across 94 buildings, for a total of 29210 seats. (Not far off from the number of undergraduates enrolled!)
+          </figcaption>
+        </figure>
+        <p>I've always been really interested in the huge logistical challenge that must be getting every single one of the thousands of courses offered each quarter a proper room, and making sure that everything was used efficiently.In a weird way, it kind of reminds me of a really really hard version of the <a href="https://en.wikipedia.org/wiki/Interval_scheduling">interval scheduling</a> algorithm my Math 182 class covered. I know there's probably a big computer somewhere that they feed all the enrollment numbers into and it spits out the most optimal, but of course it'd be really interesting to know how it made certain decisions (like why so many math class happen at Geology 4645).</p>
+        <p>Of course, without actually seeing that computer, we won't really know, but after scraping this data, we now have access to where every class in the last 20 years (other than Covid year of course) has been held. Furthermore, another really interesting piece of information on this that I've dug up is UCLA's <a href="http://www.adminpolicies.ucla.edu/APP/Number/870.0">Administrative Policy 870</a>, which is exactly the policies regarding "General Assignment Classroom Scheduling". I actually encourage anyone who has had these thoughts to give it a read, it's pretty simple to read (not much legalese), and has some really interesting elements.</p>
+        <h2 id="types-of-space">Types of Space</h2>
+        <p>One example of a detail people might not be aware of is the division of all classrooms into two kinds: General Assignment (GA) classrooms, Departmental classrooms. 
+          departmental classrooms.</p>
+        <p>The main difference seems to lie in whose has authority to distribute classes to each room. Departmental classrooms are classrooms where the scheduling authority lies directly with a school or
+          department, with them choosing what classes get offered there, and even how long the classes should last. These are usually reserved for more specialized classrooms, like all the classrooms in the Anderson Business School and . This means that for the most part, departmental classrooms house only classes that are taught by their department.</p>
+        
+          <p>General Assignment classrooms, as the name implies, are classrooms usable by any department. Out of the 596 classrooms on campus,  <a
+            href="https://www.registrar.ucla.edu/Faculty-Staff/Classrooms-and-Scheduling/General-Assignment-Classroom-Inventory">192 of them are GA</a>. As you might expect, the giant lecture halls (Moore 100, Young Hall) are more general to allow any kind of large class in there, as opposed to letting a single department monopolize its use. The GA classroom assignment process usually goes like a department wants to offer a certain number of classes with a certain number of seats, and the Registrar find classes that fit the bill. If there are other classes that have priority so that a schedule won't work out, the department has to rethink times and enrollment capacities on their own.</p>
+          <p>And if you think about it for a second, this kind of system makes a lot of sense. Lots of Departmental classrooms like Schoenberg Hall and the ones in the Marion Anderson Hall (which belongs to the Anderson School of Management) are more specialized, so it makes sense to allow certain departments to have monopolies over them, and be in charge of their usage. And another problem this solves is that classroom booking involves more than just classes: there are countless student organizations/groups that meet regularly, and even irregular meetings like review sessions. It would be really hard for these meetings to happen if there wasn't a set of rooms that were all centrally controlled, and you would have to go to each individual department.</p>
+
+        <p>And now that we have access to all this historical data on where classes were scheduled, we can actually see a lot of these effects come to bear in the statistics. Take the example of Melnitz 1409.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="melnitz1409-departments" style="display: block; height: 170px; width: 340px;" width="680"
+            height="340" class="chartjs-render-monitor"></canvas>
+        </p>
+        <p>Melnitz 1409 is quite a large classroom, it's actually almost like a mini-movie theater in case you haven't seen it. However, not many people I know have even heard of it; anecdotally, there's not many different kinds of classes scheduled there. This is in fact because Melnitz 1409 is a <i>departmental</i> classroom, so it's almost entirely monopolized by the Film and TV department. The graph shows this rather nicely the huge bias towards Film and TV classes, with the next highest being 6 English classes offered there in the past 20 years! And this makes sense, why would another department need an entire classroom that's also a movie theater? Maybe English because the source material could also be movies/TV.
+        <p>Now let's take a look at a <i>General Assignment</i> classroom, Moore 100.</p>
+          <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="moore100-departments" width="680" height="340" class="chartjs-render-monitor"
+            style="display: block; height: 170px; width: 340px;"></canvas>
+        </p>
+        <p>While there is a bias towards Psychology classes, the departmental makeup is a lot more evenly spread than the previous Melnitz example. The bias for Psychology probably can be chalked up to the fact that Psychology has a lot of big classes as a big department. In fact, the top 5 listed here are indeed also some of the <a href="https://www.apb.ucla.edu/Portals/90/Documents/Campus%20Stats/UGProfile18-19.pdf"></a>largest majors at UCLA</a>.</p>
+        <p>Now I thought that the Mathematical Sciences (MS) building would almost entirely be departmental classrooms because in my own anecdotal experience, there are basically always math classes exclusively in all the classrooms I usually pass by. However, I actually saw most of the MS classrooms in the GA classrooms list. But wait, if they're GA, why have I never seen a non-math class in a normal MS room? To confirm this, we can actually look at the numbers on MS's largest lecture hall, MS4000A.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="ms4000a-departments" width="680" height="340" class="chartjs-render-monitor"
+            style="display: block; height: 170px; width: 340px;"></canvas>
+        </p>
+        <p>Hmm, so even though MS4000A is a GA classroom, it looks like the Registrar still heavily leans towards giving it math classes. With this peak of math classes being similar to Melnitz's peak of Film and TV classes. If you look behind the scenes as well, there's actually some pretty complicated historical agreements between the Registrar and certain departments where there are many "priority classes" for the registrar to hand out to certain departments before their big optimizer can be ran. In fact, this has actually led to a committee forming to give a report on recommendations for more efficient classroom scheduling. Their recommendation 2h actually does indeed say to try to limit those "preferential" schedulings of GA classrooms, which is sort of like sacrificing the efficiency of classroom utilization in favor of convenience of what everyone's used to, i.e. having all math classes in math buildings. It would probably be a little strange having fewer math classes in the MS buildings, but I would honestly be in favor. I like walking across the campus to a variety of buildings, and the MS building gets quite boring sometimes, especially since my part-time job is also in there.
+        </p>
+        <h2 id="prime-time">Prime Time</h2>
+        <p>Another really interesting rule from this policy is actually the concept of "Prime Time", the hours between 9AM - 3PM. Interestingly, the rule is that departments aren't allowed to schedule more than 60% of classes at this time, presumably to help more evenly distribute classes during the day. However, another recommendation was to enforce Prime Time more, suggesting that this has fallen a bit out of practice since Policy 870 was established in 2003.</p>
+        <p>Indeed, if we look at the scheduled times for all classes in Winter 2020, we can see that around 75% of classes are actually scheduled during some part of Prime Time, which is technically against this policy.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="prime-time-donut" width="680" height="340" class="chartjs-render-monitor"
+            style="display: block; height: 170px; width: 340px;"></canvas>
+        </p>
+        <p>A final interesting rule from this policy is that apparently 20% of classes should be scheduled on Fridays, again for the purposes of scheduling classroom utilization evenly (more on that in the "ideas for improvement" section). I bet they're calling out Friday specifically because there might have been fewer sections offered on Fridays. We can see what the numbers are like more recently for Winter 2020 if we once again look at the distribution of classes scheduled on each weekday:</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="days-radar" width="680" height="340" class="chartjs-render-monitor"
+            style="display: block; height: 170px; width: 340px;"></canvas>
+        </p>
+        <p>There are only around 11% of classes were scheduled on a Friday.  I assume an underlying cause for this is that departments submit the classtimes they want scheduled, and lots of faculty don't want to come in for too long on Fridays, so even though this policy has been enacted, the registrar has bent to this preference over time.</p>
+        <p>It really does look like people put a lot of time and effort into thinking about how to schedule classes most efficiently, which does seem really important for a giant university like UCLA. However, it looks like this policy is taken more as a suggestion, and the theme from all this data is that the Registrar prefers not to cause issues by enforcing the policy and going with what's been done and proven, even if technically less efficient.  Even though making that enrollment speed and attrition rate little search bars was pretty fun and interesting, I actually think this was the most interesting data from this project; I at least sort of take the classroom assignment stuff for granted, the assignment just sort of fall out of the sky, and I just go to the classroom at the right time. But after reading all of this, now understand the whole process at least a little bit more now.</p>
+      </article>
+    </main>
+  </div>
+
+
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js" integrity="sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@0.1.3/dist/chartjs-chart-matrix.min.js" integrity="sha256-w0NjVSRI+HwjqhuitUP0LW5ycKcCs7rMS6k8WHpdgmc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+
+  <script
+    src="./assets/buildings.js">
+  </script>
+
+
+</body>
+
+</html>

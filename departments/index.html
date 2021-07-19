@@ -1,0 +1,200 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    Departments
+  </title>
+
+  <meta name="description" content="An exploration into 20 years of enrollment data from the UCLA Registrar.">
+
+  <link href="https://fonts.googleapis.com/css?family=Overpass:400,400i,800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://d33wubrfki0l68.cloudfront.net/css/f913fa584d4ad0f21bec4c8ea1cd880ff89e0fe1/styles.css">
+
+  <link href="./assets/styles.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+  <style type="text/css">
+    /* Chart.js */
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: .99
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      animation: chartjs-render-animation 1ms
+    }
+
+    .chartjs-size-monitor,
+    .chartjs-size-monitor-expand,
+    .chartjs-size-monitor-shrink {
+      position: absolute;
+      direction: ltr;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+      z-index: -1
+    }
+
+    .chartjs-size-monitor-expand>div {
+      position: absolute;
+      width: 1000000px;
+      height: 1000000px;
+      left: 0;
+      top: 0
+    }
+
+    .chartjs-size-monitor-shrink>div {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      left: 0;
+      top: 0
+    }
+  </style>
+</head>
+
+<body>
+  <div class="p-6">
+    <header class="mb-6">
+      <h1 class="m-0">
+        Exploring UCLA Enrollment Data
+      </h1>
+    </header>
+    <main class="max-w-3xl my-auto mx-0 text-xl">
+      <article>
+        <h1>
+          Departments
+        </h1>
+        <p>The size of a department can have tremendous impact on the department's ability
+          to schedule and offer courses, produce research, and receive funding from the university. However, statistics
+          about the size of various departments are not easily accessible.</p>
+        <p>In this section, we attempt to quantify department size using a number of different metrics including number
+          of subject areas offered, number of sections offered, and total number of enrolled students.</p>
+        <p>We'll also analyze department growth by looking at these enrollment trends over time.</p>
+        <h2 id="department-size">Department Size</h2>
+        <h3 id="by-subject-area">By Subject Area</h3>
+        <p>We'll first examine department size by subject areas. The top departments for subject area offerings are
+          almost all language departments, where each subject area listing corresponds to a language. The sole exception
+          to this is the Management department, which offers eight different subject areas, one for each degree program
+          it offers.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="dept-size-subject-area" style="display: block; height: 384px; width: 768px;" width="1536"
+            height="768" class="chartjs-render-monitor"></canvas>
+        </p>
+        <p>This metric might not be the most exciting (I'm sure most people aren't too interested in the fact that the linguistics department is responsible for both the Linguistics and the <i>Applied</i> Linguistics subjects), I thought it was rather neat to see that many Languages and Cultures departments have really high numbers simply because each distinct "language and culture" is counted as its own subject. Indeed, it would be really annoying to number/remember all the numberings if <a href="https://www.alc.ucla.edu/undergraduate/majors-minors/">Chinese, Korean, Japanese, Vietnamese, etc.</a> were all offered under the same subject, even if they all fall under the same department heading.</p>
+        <h3 id="by-courses">By Courses</h3>
+        <p>Maybe more interesting is how many different courses each department offers.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="dept-size-courses" width="1536" height="768" class="chartjs-render-monitor"
+            style="display: block; height: 384px; width: 768px;"></canvas>
+        </p>
+        <p>I was a bit surprised by the fact that not only is history the highest, but it beats out the next highest by <i>1000</i> courses. I mean, 2900 courses over ~20 years is something like 150 courses offered every year, or something like 50 courses a quarter.</p>
+        <p>But I mean, when you sit down and think about it, this makes a good amount of sense. History is a big and diverse topic, and this is confirmed by <a href="https://www.registrar.ucla.edu/Academics/Course-Descriptions/Course-Details?sa=HIST+++&funsel=3">the registrar's list of History course decriptions</a>, where you can see course letterings going as high as from A-R, covering every group, movement, and culture you can think of.</p>
+        <p>Another contributor to courses such as History and English being so high are the high number of <a href="http://www.uei.ucla.edu/academic-programs/fiat-lux/">Fiat Lux</a> courses offered by these departments. These are one-off classes that teach something more fun, hot-topic, or in general non-traditional, so to speak. (I'm talking <a href="https://twitter.com/profbank/status/964186241494233088?lang=en">Soccer Law</a> and <a href="https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=20F&subj_area_cd=WL%20ARTS&crs_catlg_no=0019%20%20%20%20&class_id=401057200&class_no=%20001%20%20">COVID meditation</a>). Indeed, both these departments have the highest number of Fiat Lux courses offered in this period, at 169 and 112 respectively. I suppose this stems from a very similar root cause; these subjects naturally lend themselves to more special and niche topics that aren't big enough to become established courses, but would be interesting as a smaller seminar. </p>
+        <h3 id="by-sections">By Sections</h3>
+        <p>You might think that the number of sections would correlate nicely with the number of courses offered, we can see that there's quite a big difference in the top departments in this metric.
+        </p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="dept-size-sections" width="1536" height="768" class="chartjs-render-monitor"
+            style="display: block; height: 384px; width: 768px;"></canvas>
+        </p>
+        <p>I was surprised that psychology was so high above the rest. I mean, it's quite well known that <a href="https://www.apb.ucla.edu/Portals/90/Documents/Campus%20Stats/UGProfile18-19.pdf">it's one of UCLA's most popular majors</a>, but I was surprised that some of the other popular ones like Political Science and Biology didn't make it on. At first, I thought that this could be attributed to the fact that psychology had smaller section sizes, so its students were split into many tiny sections each quarter. However, just looking around, Political Science classes seem to have even smaller sections, and many psychology classes don't even have sections for their labs.</p>
+        <p>Furthermore, there are some more "art-sy" departments that one would exactly call popular at UCLA, like Theater, Music, and Film, Television, and Digital Media. But I think these can be chalked up to the fact that these classes tend to have tiny section sizes as well, because it's easier to discuss film, theater, and such in a smaller group, as opposed to other STEM-y subjects where discussion sections are either like more lectures or problem-solving sessions.</p>
+        <h3 id="by-enrollment">By enrollment</h3>
+        <p>And finally, we can go down to the smallest subdivision of counting the total enrollment numbers for each class under each department.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="dept-size-enrollment" width="1536" height="768" class="chartjs-render-monitor"
+            style="display: block; height: 384px; width: 768px;"></canvas>
+        </p>
+        <p>Even though Management doesn't seem like a huge major at UCLA, in this metric of counting enrolled students, they are the highest simply because most students pursuing MBAs at the Anderson business school are likely <i>only</i> taking Management courses, so there's lots of double counting.</p>
+        <p>Other than psychology, I was happy Math up on the list of number of students enrolled, but of course, this is probably just because 99% of majors require a good amount of calculus courses, all of which are under the math department.</p>
+        <p>A more useful metric might be enrollment numbers for a department over time. Like the number of sections, the
+          enrollment numbers for the top four biggest departments for enrollment has a linear trend upwards.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="dept-enrollment-count-by-term" width="1536" height="768" class="chartjs-render-monitor"
+            style="display: block; height: 384px; width: 768px;"></canvas>
+        </p>
+        <p>The most obvious interesting trend about this graph is that numbers are consistently down <i>every</i> Spring. I don't know the definite answer to why this happens, but I'm guessing that students either graduate or drop out or decide to move on in some way <i>during</i> the academic year, not in between during the summer, and so Spring, the end of the academic year, is would have the least students before the new enrollments would come in the following Fall. </p>
+        <p>I was also a little sad mathematics are starting to decline just a little, I wonder if other STEM majors, especially Computer Science, are stealing lots of students away nowadays. Most of the other math majors I meet seem to either be the few that <i>really</i> love math, or are basically computer students who hate actually learning computer science/programming and like math too much to give up learning it, like me.</p>
+        <h2>How are the humanities doing?</h2>
+        <p>I think the general "vibe" in the educational world is that increased relevance of technology and data in our lives means that there's more pressure and desire for students to study hard science/STEM majors, and students who decide on humanities majors are sort of looked at with the "what are you gonna do with that?" feeling. Looking at the actual numbers themselves can show us how much this feeling is reflected in reality.</p>
+        <p>
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div><canvas id="college-enrollment-by-division" width="1536" height="768" class="chartjs-render-monitor"
+            style="display: block; height: 384px; width: 768px;"></canvas>
+        </p>
+        <p>Especially over the past 20 years, the trends is rather clear; the humanities enrollment numbers have stagnated even though <a href="https://www.apb.ucla.edu/campus-statistics/enrollment">enrollment numbers have been pretty consistently increasing in the same period</a>.</p>
+      </article>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js" integrity="sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@0.1.3/dist/chartjs-chart-matrix.min.js" integrity="sha256-w0NjVSRI+HwjqhuitUP0LW5ycKcCs7rMS6k8WHpdgmc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+
+
+  <script
+    src="./assets/departments.js">
+  </script>
+
+
+</body>
+
+</html>

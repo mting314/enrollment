@@ -1,0 +1,138 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Overview
+    </title>
+
+    <meta name="description" content="An exploration into 20 years of enrollment data from the UCLA Registrar.">
+
+    <link href="https://fonts.googleapis.com/css?family=Overpass:400,400i,800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+      integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+      href="https://d33wubrfki0l68.cloudfront.net/css/f913fa584d4ad0f21bec4c8ea1cd880ff89e0fe1/styles.css">
+  
+    <link href="./assets/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="p-6">
+        <header class="mb-6">
+            <h1 class="m-0">
+                <a class="font-bold text-4xl header-link m-0" href="/enrollment_data">
+                    Exploring Enrollment
+                </a>
+            </h1>
+            <h3 class="text-base font-normal italic text-gray-700 m-0 mb-4">
+                Analyzing trends in 20 years of UCLA Registrar data
+            </h3>
+            <nav>
+                <ul class="flex text-sm w-full overflow-auto">
+                    <li class="mr-6">
+                        <a class="header-link" href="./">
+                            Overview
+                        </a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="header-link"
+                            href="./departments">
+                            Departments
+                        </a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="header-link" href="./popularity">
+                            Class Fill-Up
+                        </a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="header-link" href="./buildings">
+                            Buildings
+                        </a>
+                    </li>
+                    <li class="mr-6">
+                        <a class="header-link" href="./ideas-for-improvement">
+                            Ideas for Improvement
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="max-w-3xl my-auto mx-0 text-xl">
+            <article>
+                <h1>
+                    Overview
+                </h1>
+                <h2>The Setting</h2>
+                <p>UCLA is a <a href="https://en.wikipedia.org/wiki/University_of_California#Campuses_and_rankings">big university</a>, the biggest out of any UC currently. Having to be worried around enrollment time is something students at most colleges face, but the problems become magnified when you realize that there could be literally hundreds of people gunning for a spot in the class that can only seat 30 people. People fuss about not being able to get out of 8AM classes at other colleges, but at least in my experience at UCLA, you start hearing more concerning stories much more commonly, all the way up to ones where people can't take certain classes they need to graduate and have to take an extra quarter just because a certain class they needed filled up. It's to the point where people paying other to hold spots for them in certain classes is a common practice, which in my opinion, really shouldn't have to be common.</p>
+
+                <p>For these reasons, I have recently taken an interest in ways to record enrollment data to mainly answer questions like "how fast do certain classes fill up?", "which classes have a high drop rate?", "is this class more popular during the first or second enrollment passes?", and many many others. As well as to satisfy my own curiosity, I thought other people might want to have a look at the data for their own classes or curiosity, so I made this website so that I could present my findings, and even let people search for their own classes in the <a href="./popularity">Class Fill-Up</a> section.</p>
+                <h2>Definitions</h2>
+                <p>These can get rather confusing (many people use terms like "section" and "course" interchangeably), but it's important to hammer out exactly what terms mean when I say them here.</p>
+                <ul>
+                    <li><b>MyUCLA</b>: UCLA’s official student portal. Where students see grades, how full classes are, and also where students actually perform the enrollment process. Always seems to be under maintenance during exam periods...</li>
+                    <li><b>Section:</b> A particular offering of a course for a given term. The main confusion here is that many people only use "section" to refer to the discussion sections (they're like recitations) that are usually part of a course, and refer to the main portion taught by a professor as the "lecture". However, as far as UCLA's database sees things, the word "section" encompasses both of these elements.</li>
+                    <li><b>Class ID Number</b>: A 9 digit ID that uniquely identifies a certain Lecture or section of a certain class. Sections also have their own number, and are just made by incrementing the main class’s ID. For example Japan 5 has the Class ID Number 261015200, while its discussions are labeled <a href="https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=21W&subj_area_cd=JAPAN%20%20&crs_catlg_no=0005%20%20%20%20&class_id=261015201&class_no=%20001%20%20">261015201</a> and <a href="https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=21W&subj_area_cd=JAPAN%20%20&crs_catlg_no=0005%20%20%20%20&class_id=261015202&class_no=%20001%20%20">261015202</a>, in order.</li>
+                </ul>
+                <h2>Collecting the Data</h2>
+                <p>All of the <i>current</i> for any section at UCLA are openly displayed at <a href="https://sa.ucla.edu/ro/Public/SOC">the official Schedule of Classes website</a>, no login necessary. However, no data about what the enrollment numbers were in the past, so this dataset has no record of enrollment numbers before Fall 2019. To collect the data I wrote a scraper  in <a href="https://golang.org/">Go</a> that was eventually deployed as multiple <a href="https://aws.amazon.com/lambda/">AWS Lambda</a> functions. The current dataset encompasses the Fall 2019 until right before the end of Winter 2020, meaning that if we want class enrollment numbers during a quarter, we only really have Fall.</p>
+                <p>However, I think this dataset encompasses the most interesting times to look at enrollment numbers, which is around halfway during the quarter when everyone has their <a href="https://www.registrar.ucla.edu/Registration-Classes/Enrollment-Appointments/Enrollment-Appointments">enrollment appointments</a>. (See the <a href="/popularity">first section</a> for more details).</p>
+
+                <p>Even though UCLA doesn't seem to store all the intermediate data how many people were enrolled in the class (because let's be honest, that's very uninportant to see for the average student trying to look up classes), UCLA at least does keep a record of what each section looked like at least at the end of each quarter all the way back to 1999. (<a href="https://sa.ucla.edu/ro/public/soc/Results?SubjectAreaName=Mathematics+(MATH)&t=19F&sBy=subject&subj=MATH+++&catlg=&cls_no=&undefined=Go&btnIsInIndex=btn_inIndex">Example search for Math classes in Fall 1999</a>)</p>
+                <p>This allows us to collect at least a good estimate on what classes were being offered, and how many people were taking classes in each subject area throughout history.</p>
+                
+                <p>There are certain courses meant more to keep track of how TAs get their credit when teaching discussion sections, and other individual study sections that aren't really what most people think of as "classes" but need to be kept in the system for record-keeping purposes. These are the <a href="https://www.registrar.ucla.edu/Academics/Course-Descriptions/Course-Numbering-and-Description-Guide">300s-500s classes</a>, and I didn't deem them necessary to include in this dataset. Besides, enrollment isn't ever really a concern for the much smaller and catered-to graduate students, who are the usual audience for these courses.</p>
+
+                For all the little details and sample code for how I wrote the scraper and built the database, check out 
+
+                <h2 id="buildings-and-classrooms">Buildings and Classrooms</h2>
+                <p>Additional information about classrooms and buildings were scraped from the <a
+                        href="https://map.ucla.edu/">official UCLA Map</a>, <a
+                        href="https://www.registrar.ucla.edu/Faculty-Staff/Classrooms-and-Scheduling/Building-List">building
+                        list</a>, and <a
+                        href="https://www.registrar.ucla.edu/Faculty-Staff/Classrooms-and-Scheduling/Classroom-Grid-Search">Classroom
+                        Grid Search</a>. Over the past 20 years at UCLA, classroom sizes have changed with renovations
+                    and buildings have both been created and destroyed. All classroom data was scraped in February 2020
+                    and is only current to February 2020; it doesn't take into account any historical changes.</p>
+                <p>Information about buildings and classrooms are stored as two tables in the database:
+                    <code>buildings</code> and <code>rooms</code>, respectively.</p>
+                <p><code>buildings</code> contains an id, name, abbreviation, and coordinates of all buildings listed by
+                    the registrar. <code>rooms</code> contains rows of an id, reference to a building in the
+                    <code>buildings</code> table, room number, and the maximum capacity of the room.</p>
+                <h2 id="data">Data</h2>
+                <p>The data set contains:</p>
+                <ul>
+                    <li>65 terms (99W to 20S)</li>
+                    <li>147 Departments</li>
+                    <li>282 subject areas (keep in mind some subject areas change name, and certain subjects come and go . For example <a href="https://www.registrar.ucla.edu/Academics/Course-Descriptions/Course-Details?SA=ARTS+ED&funsel=3">Arts Education</a> has only existed since 15F, while African Languages have, like many other languages, have split off into their <a href="https://www.registrar.ucla.edu/Academics/Course-Descriptions/Course-Details?SA=AFRKAAN&funsel=3">own subject areas</a> in the same quarter, presumably to make numbering easier)</li>
+                    <li>40,239 courses</li>
+                    <li>353,255 sections</li>
+                    <li>Over 30,000,000 rows hourly of enrollment data</li>
+                </ul>
+                <p>I've put all the data into a <a href="https://drive.google.com/file/d/1QTvchuAvxYQLWln1xZBUHW5lb4aZtrh_/view?usp=sharing">PostgreSQL dump file</a> that's about 2 gigabytes large. In case you're new to PostgreSQL, they have a really nice tutorial for first time setup on their website. After following it, you can look at <a href="https://www.postgresql.org/docs/9.1/backup-dump.html"> this page</a> for instructions on how to load the dump file.</p>
+                <p>All the data I've used for this project is pulled straight from the database, I only automated some queries using <code>psycopg2</code> with Python, I'll probably upload a Jupyter Notebook later to demonstrate some of the queries. If you're interested in seeing the data itself though, they can be found in a <a href="https://www.pic.ucla.edu/~coolguy5530/enrollment_data/">separate directory</a> on this website.</p>
+            </article>
+        </main>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+    integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"
+    integrity="sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@0.1.3/dist/chartjs-chart-matrix.min.js"
+    integrity="sha256-w0NjVSRI+HwjqhuitUP0LW5ycKcCs7rMS6k8WHpdgmc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+
+</body>
+
+</html>

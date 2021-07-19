@@ -1,0 +1,200 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    How popular are classes? |
+    Exploring Enrollment
+  </title>
+
+  <meta name="description" content="An exploration into 20 years of enrollment data from the UCLA Registrar.">
+
+  <link href="https://fonts.googleapis.com/css?family=Overpass:400,400i,800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+    integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css"
+    href="https://d33wubrfki0l68.cloudfront.net/css/f913fa584d4ad0f21bec4c8ea1cd880ff89e0fe1/styles.css">
+  <style type="text/css">
+    /* Chart.js */
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: .99
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      animation: chartjs-render-animation 1ms
+    }
+
+    .chartjs-size-monitor,
+    .chartjs-size-monitor-expand,
+    .chartjs-size-monitor-shrink {
+      position: absolute;
+      direction: ltr;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+      z-index: -1
+    }
+
+    .chartjs-size-monitor-expand>div {
+      position: absolute;
+      width: 1000000px;
+      height: 1000000px;
+      left: 0;
+      top: 0
+    }
+
+    .chartjs-size-monitor-shrink>div {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      left: 0;
+      top: 0
+    }
+  </style>
+</head>
+
+<body>
+  <div class="p-6">
+    <header class="mb-6">
+      <h1 class="m-0">
+
+        UCLA Enrollment Data
+      </h1>
+
+    </header>
+    <main class="max-w-3xl my-auto mx-0 text-xl">
+      <article>
+        <h1>
+          How popular are classes?
+        </h1>
+        <p>UCLA is a big school. While that's nice in lots of regards (diversity, lots of good infrastructure and
+          services), this comes at a really big cost: enrollment. I've heard stories from so many professors that go
+          something like "wait, you actually have to worry about getting in to your major classes?" And the answer is
+          definitely, yes. Anyone who has spent any time on the UCLA subreddit can attest to the amount of posts that
+          get made by people worried that a class that they need to take to graduate will fill up, and people have</p>
+        <h2 id="how-does-undergraduate-enrollment-work">How does undergraduate enrollment work?</h2>
+        <p>UCLA assigns each student an enrollment appointment based on their class standing and a random number
+          generator.</p>
+        <p>Enrollment is divided into <a
+            href="https://www.registrar.ucla.edu/Registration-Classes/Enrollment-Appointments-and-Passes/Undergraduate-Student-Enrollment-Passes">three
+            passes</a>:</p>
+        <ul>
+          <li>Before anyone else goes, there is a <b>Priority Enrollment Pass</b>, where special students like Regent
+            Scholars and atheletes get first pickings at the class.</li>
+          <li>First Pass is the next pass, which allows all students (including students who enrolled in Priority Pass)
+            to enroll in up to 10 units. The idea is that students can grab their high priority classes at this time so
+            that they are secured "must-take" classes before they let the leashes off everyone else.</li>
+          <li>Second Pass is when the Registrar opens the floodgates, allowing students to enroll in classes until they
+            are satisfied (or they hit their <a
+              href="https://www.registrar.ucla.edu/Registration-Classes/Study-List/Study-List-Limits">unit limit</a>, 19
+            for most students), only closing when the Study Lists (official list of classes a student is enrolled in)
+            have their <a
+              href="https://www.registrar.ucla.edu/Fees-Residence/Course-and-Study-List-Fees/Undergraduate-Study-List-Deadlines-and-Fees">deadline</a>.
+          </li>
+        </ul>
+        <p>The first pass times are distributed based on unit standing (more senior students are given higher priority
+          to ensure they can graduate without worries about taking that one last class), and the second pass is usually
+          exactly one week afterwards.</p>
+        <h2>Enrollment Speed</h2>
+        <p>So with that, we can see some really interesting trends arise in general for how "in demand" certain classes
+          are by seeing how many people are enrolled over the time of each pass. Type a class into the search bar below,
+          and check a class you're interested in. It'll show offerings of that class from both Winter and Spring 2020,
+          and you can click on individual instructors to hide or show their data from the chart.</p>
+        <div id="fillup">
+          <div>
+            <div class="chartjs-size-monitor">
+              <div class="chartjs-size-monitor-expand">
+                <div class=""></div>
+              </div>
+              <div class="chartjs-size-monitor-shrink">
+                <div class=""></div>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="w-full mb-4"><label class="font-bold block mb-3" for="downshift-0-input"
+                  id="downshift-0-label">Enter a course</label>
+                <div class="w-full" role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                  aria-labelledby="downshift-0-label"><input
+                    class="course-select shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    aria-autocomplete="list" aria-labelledby="downshift-0-label" autocomplete="off"
+                    id="downshift-0-input" value=""></div>
+                <div class="relative w-full">
+                  <ul class=" absolute list-none border rounded w-full" role="listbox"
+                    aria-labelledby="downshift-0-label" id="downshift-0-menu"></ul>
+                </div>
+              </div>
+            </div><canvas id="test" class="chartjs-render-monitor" width="1536" height="768"
+              style="display: block; height: 384px; width: 768px;"></canvas>
+          </div>
+        </div>
+        <h2 id="which-classes-are-the-most-difficult">Attrition Rate</h2>
+        <p>Another interesting thing we can do is check time <i>after</i> the quarter starts, and see what I call the
+          "attrition rate" of certain classes, to see how many people drop a class, and when. This can be the cause of
+          many things, such as the first homework or midterm being harder than expected, or the material getting
+          boring/being different from expected.</p>
+        <div id="drops">
+          <div>
+            <div class="chartjs-size-monitor">
+              <div class="chartjs-size-monitor-expand">
+                <div class=""></div>
+              </div>
+              <div class="chartjs-size-monitor-shrink">
+                <div class=""></div>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="w-full mb-4"><label class="font-bold block mb-3" for="downshift-1-input"
+                  id="downshift-1-label">Enter a course</label>
+                <div class="w-full" role="combobox" aria-expanded="false" aria-haspopup="listbox"
+                  aria-labelledby="downshift-1-label"><input
+                    class="course-select shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    aria-autocomplete="list" aria-labelledby="downshift-1-label" autocomplete="off"
+                    id="downshift-1-input" value=""></div>
+                <div class="relative w-full">
+                  <ul class=" absolute list-none border rounded w-full" role="listbox"
+                    aria-labelledby="downshift-1-label" id="downshift-1-menu"></ul>
+                </div>
+              </div>
+            </div><canvas id="test" class="chartjs-render-monitor" width="1496" height="748"
+              style="display: block; height: 374px; width: 748px;"></canvas>
+          </div>
+        </div>
+      </article>
+    </main>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+    integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"
+    integrity="sha256-Olnajf3o9kfkFGloISwP1TslJiWUDd7IYmfC+GdCKd4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@0.1.3/dist/chartjs-chart-matrix.min.js"
+    integrity="sha256-w0NjVSRI+HwjqhuitUP0LW5ycKcCs7rMS6k8WHpdgmc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+
+  <script src="./assets/class-popularity.js"></script>
+
+
+  <div id="a11y-status-message" role="status" aria-live="polite" aria-relevant="additions text"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;">
+  </div>
+</body>
+
+</html>
