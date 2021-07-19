@@ -1012,8 +1012,8 @@
             }, et.apply(n, arguments)
         }(Rt).domain([0, 2e3]);
         !async function () {
-            const t = await Object(e.a)(`../../enrollment_data/buildings.csv`),
-                n = await Object(e.a)(`../../enrollment_data/rooms.csv`);
+            const t = await Object(e.a)(`../enrollment_data/buildings.csv`),
+                n = await Object(e.a)(`../enrollment_data/rooms.csv`);
             t.forEach(t => {
                 const r = n.filter(n => n.building === t.abbreviation),
                     e = r.reduce((t, n) => Number(n.capacity) + t, 0);
@@ -1231,7 +1231,7 @@
         r.r(n);
         var e = r(2);
         async function o(t, n) {
-            const r = await Object(e.a)(`../../enrollment_data/${t}-depts.csv`),
+            const r = await Object(e.a)(`../enrollment_data/${t}-depts.csv`),
                 o = document.getElementById(`${t}-departments`).getContext("2d");
             new Chart(o, {
                 type: "horizontalBar",
@@ -1463,7 +1463,7 @@
         n.r(e);
         var r = n(2);
         !async function () {
-            const t = await Object(r.a)(`../../enrollment_data/20W-prime-time-counts.csv`),
+            const t = await Object(r.a)(`../enrollment_data/20W-prime-time-counts.csv`),
                 e = document.getElementById("prime-time-donut").getContext("2d");
             new Chart(e, {
                 type: "doughnut",
@@ -1491,7 +1491,7 @@
                 }
             })
         }(), async function () {
-            const t = (await Object(r.a)(`../../enrollment_data/20W-day-counts.csv`)).slice(0, 5),
+            const t = (await Object(r.a)(`../enrollment_data/20W-day-counts.csv`)).slice(0, 5),
                 e = document.getElementById("days-radar").getContext("2d");
             new Chart(e, {
                 type: "radar",

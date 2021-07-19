@@ -197,7 +197,7 @@
         "use strict";
         r.r(n);
         var e = r(2);
-        Object(e.a)(`../../enrollment_data/online-courses.csv`).then(t => {
+        Object(e.a)(`../enrollment_data/online-courses.csv`).then(t => {
             const n = document.getElementById("online").getContext("2d");
             new Chart(n, {
                 type: "bar",
@@ -440,7 +440,7 @@
                     return 7
             }
         }!async function () {
-            const t = await Object(n.a)(`../../enrollment_data/moore100heatmap.csv`),
+            const t = await Object(n.a)(`../enrollment_data/moore100heatmap.csv`),
                 e = t.map(e => ({
                     ...t,
                     days: JSON.parse(e.days),
@@ -803,9 +803,9 @@
         var r = n(2),
             o = n(3);
         !async function () {
-            let t = await Object(r.a)(`../../enrollment_data/sections-by-term.csv`);
+            let t = await Object(r.a)(`../enrollment_data/sections-by-term.csv`);
             t.sort((t, e) => Object(o.sortByTerm)(t.term, e.term)), t = t.slice(5);
-            let e = await Object(r.a)(`../../enrollment_data/enrollment-counts-by-quarter-apb.csv`);
+            let e = await Object(r.a)(`../enrollment_data/enrollment-counts-by-quarter-apb.csv`);
             e.sort((t, e) => Object(o.sortByTerm)(t.term, e.term)), e = e.slice(5);
             const n = document.getElementById("sections-and-enrollment-by-term").getContext("2d");
             new Chart(n, {
@@ -1066,7 +1066,7 @@
         e.r(n);
         var r = e(2);
         !async function () {
-            const t = await Object(r.a)(`../../enrollment_data/ucla-freshman-yield-apb.csv`),
+            const t = await Object(r.a)(`../enrollment_data/ucla-freshman-yield-apb.csv`),
                 n = document.getElementById("yield-rate").getContext("2d");
             new Chart(n, {
                 type: "line",

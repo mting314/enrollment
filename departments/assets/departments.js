@@ -199,7 +199,7 @@
         var r = n(2),
             o = n(3);
         async function u(t, e) {
-            const n = await Object(r.a)(`../../enrollment_data/${t}.csv`),
+            const n = await Object(r.a)(`../enrollment_data/${t}.csv`),
                 o = document.getElementById(t).getContext("2d");
             new Chart(o, {
                 type: "horizontalBar",
@@ -228,7 +228,7 @@
             })
         }
         async function a(t, e) {
-            const n = (await Object(r.a)(`../../enrollment_data/${t}.csv`)).reduce((t, {
+            const n = (await Object(r.a)(`../enrollment_data/${t}.csv`)).reduce((t, {
                 name: e,
                 term: n,
                 count: r
@@ -665,7 +665,7 @@
         n.r(e);
         var r = n(2);
         !async function () {
-            const t = await Object(r.a)(`../../enrollment_data/20W-prime-time-counts.csv`),
+            const t = await Object(r.a)(`../enrollment_data/20W-prime-time-counts.csv`),
                 e = document.getElementById("prime-time-donut").getContext("2d");
             new Chart(e, {
                 type: "doughnut",
@@ -693,7 +693,7 @@
                 }
             })
         }(), async function () {
-            const t = (await Object(r.a)(`../../enrollment_data/20W-day-counts.csv`)).slice(0, 5),
+            const t = (await Object(r.a)(`../enrollment_data/20W-day-counts.csv`)).slice(0, 5),
                 e = document.getElementById("days-radar").getContext("2d");
             new Chart(e, {
                 type: "radar",

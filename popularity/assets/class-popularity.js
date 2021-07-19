@@ -7914,20 +7914,20 @@
         })
     }
     const ae = {
-            coursesURL: `../../enrollment_data/winter-spring-20-courses.csv`,
+            coursesURL: `../enrollment_data/winter-spring-20-courses.csv`,
             enrollmentDataURLs: [
-                [`../../enrollment_data/s20-enrollment-fillup.csv`, 0],
-                [`../../enrollment_data/w20-enrollment-fillup.csv`, 98]
+                [`../enrollment_data/s20-enrollment-fillup.csv`, 0],
+                [`../enrollment_data/w20-enrollment-fillup.csv`, 98]
             ],
             min: new Date("2020-02-10").toISOString(),
             max: new Date("2020-02-28").toISOString(),
             annotations: oe
         },
         ue = {
-            coursesURL: `../../enrollment_data/fall-winter-20-courses.csv`,
+            coursesURL: `../enrollment_data/fall-winter-20-courses.csv`,
             enrollmentDataURLs: [
-                [`../../enrollment_data/w20-drop-data.csv`, 0],
-                [`../../enrollment_data/f19-drop-data.csv`, 105]
+                [`../enrollment_data/w20-drop-data.csv`, 0],
+                [`../enrollment_data/f19-drop-data.csv`, 105]
             ],
             min: new Date("2020-01-06").toISOString(),
             max: new Date("2020-02-09").toISOString(),
@@ -7960,7 +7960,7 @@
                 }
                 a(t)
             }(), async function () {
-                const e = await Object(ee.a)(`../../enrollment_data/instructor-list.csv`);
+                const e = await Object(ee.a)(`../enrollment_data/instructor-list.csv`);
                 console.log("response:", e), i(e)
             }()
         }, []);
